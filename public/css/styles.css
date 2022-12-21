@@ -1,21 +1,73 @@
 body{
-    background-color: plum;
+    background-color: #3B185F;
+    text-align: center;
+    color: burlywood ;
+
 }
 
-.centerd{
+.centered{
     padding-top:200px;
     text-align: center;
 }
 
-.secrect-text{
+.secret-text{
     text-align: center;
     font-size: 2rem;
     color:#fff;
     background-color: purple;
 }
 
-/* .footer p {
-	margin-top: 25px;
-	font-size: 12px;
-    color: #fff;
+
+form{
+    margin-top: 20px;
+    text-align: left;
+}
+
+.form-group{
+   margin: 10px;
+}
+
+label{
+    font-weight: bolder;
+}
+
+.btn {
+    background: #A3C7D6;
+    background-image: -webkit-linear-gradient(top, #F0CAA3, #FEBE8C);
+    background-image: -moz-linear-gradient(top, #F0CAA3, #FEBE8C);
+    background-image: -ms-linear-gradient(top, #F0CAA3, #FEBE8C);
+    background-image: -o-linear-gradient(top, #F0CAA3, #FEBE8C );
+    background-image: linear-gradient(to bottom, #F0CAA3, #FEBE8C );
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 10px;
+    font-family: Arial;
+    color: #3B185F;
+    font-size: 12px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    margin: 10px;
+  }
+  
+  .btn:hover {
+    background: purple;
+    background-image: -webkit-linear-gradient(top, #DC5F00, #3B185F);
+    background-image: -moz-linear-gradient(top, #DC5F00, #3B185F);
+    background-image: -ms-linear-gradient(top, #DC5F00, #3B185F);
+    background-image: -o-linear-gradient(top, #DC5F00, #3B185F);
+    background-image: linear-gradient(to bottom, #DC5F00,  #3B185F );
+    text-decoration: none;
+    color:#F0CAA3;
+  }
+
+
+/* .footer-padding {
+	padding-bottom:60px;
 } */
+
+.footer p {
+
+	margin: 250px;
+	font-size: 12px;
+    
+} 
