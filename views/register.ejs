@@ -9,12 +9,18 @@
     <div class="card-body">
         
         <!-- make a post req to /login route -->
-        <form action="/submit" method="POST">
+        <form action="/register" method="POST">
             <div class="form-group">
-                <input type="text" class="form control text-center" name="secret" placeholder="What's your secret?" value="" >
+                <label for="email">Email</label>
+                <input type="text" class="form control" name="username" value="" >
             </div>
 
-            <button type="submit" class ="btn" name="button" autocomplete="off">Submit</button>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form control" name="password" value="" >
+            </div>
+
+            <button type="submit" class ="btn" name="button" autocomplete="off">Register</button>
         </form>
     
     </div>
@@ -24,7 +30,3 @@
 
 
 </div>
-
-
-
-<%- include('partials/footer'); -%>
