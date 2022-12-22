@@ -12,6 +12,12 @@ app.use(express.static("public"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const userSchema = mongoose.Schema({
+    email:String,
+    password: String
+});
+
+const User = mongoose.model("User",userSchema);
 
 
 
@@ -25,6 +31,25 @@ app.get("/login",function(req,res){
 app.get("/register",function(req,res){
     res.render("register");
 });
+
+app.post("/register",function(req,res){
+    const newUser= new User({
+        //req.body.(form-group names)
+        email:req.body.username,
+        password:req.body.password
+    });
+    newUser.save( function(err){
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.render("secrets");
+            }
+    });
+});
+
+
+
 
 
 app.listen(3000,function(){
