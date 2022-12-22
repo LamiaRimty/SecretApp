@@ -2,12 +2,17 @@
 const express= require("express");
 const bodyParser = require("body-parser");
 const ejs= require("ejs");
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/userSecretDB',{useNewUrlParser: true});
+
 
 const app = express();
 
 app.use(express.static("public"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 
 app.get("/",function(req,res){
