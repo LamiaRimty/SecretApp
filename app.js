@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost:27017/userSecretDB',{useNewUrlParser: true
 
 
 const app = express();
-console.log(process.env.API_KEY);
+console.log(md5(123456));
 
 app.use(express.static("public"));
 app.set("view engine","ejs");
@@ -56,7 +56,7 @@ app.post("/register",function(req,res){
 app.post("/login",function(req,res){
 
     const username=req.body.username;
-    const password= req.body.password;
+    const password= md5(req.body.password);
 
     User.findOne({ email: username},function(err,foundUser){
         if(err){
