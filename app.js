@@ -71,10 +71,13 @@ app.post("/login",function(req,res){
         else{
 
             if(foundUser){
-                if(foundUser.password=== password){
-                    console.log(foundUser);
+                // Load hash from your password DB.
+                bcrypt.compare( password, foundUser.password, function(err, result) {
+                   if(result == true){
                     res.render("secrets");
-                }
+                   } 
+                });
+            
             }
         }
     });
