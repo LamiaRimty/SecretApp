@@ -34,7 +34,8 @@ mongoose.connect('mongodb://localhost:27017/userSecretDB',{useNewUrlParser: true
 
 const userSchema =new mongoose.Schema({
     email:String,
-    password: String
+    password: String,
+    googleId:String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -45,8 +46,21 @@ const User = mongoose.model("User",userSchema);
 // CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, {
+        id: user.id,
+        username: user.username,
+        picture: user.picture
+      });
+    });
+  });
+  
+  passport.deserializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, user);
+    });
+  });
 
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
@@ -55,6 +69,7 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return cb(err, user);
     });
@@ -64,6 +79,18 @@ passport.use(new GoogleStrategy({
 app.get("/",function(req,res){
     res.render("home");
 }); //user go to homepage
+
+
+app.get("/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+  );
+
+  app.get("/auth/google/hushhush", 
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/secrets");
+  });
 
 app.get("/login",function(req,res){
     res.render("login");
@@ -91,6 +118,8 @@ app.get("/logout",function(req,res){
         }
    })
 });
+
+
 
 app.post("/register",function(req,res){
  
