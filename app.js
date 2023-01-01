@@ -8,7 +8,9 @@ const session = require('express-session');
 const passport= require('passport');
 const passportLocalMongoose= require('passport-local-mongoose');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 var findOrCreate = require('mongoose-findorcreate')
+
 
 const app = express();
 
@@ -35,7 +37,9 @@ mongoose.connect('mongodb://localhost:27017/userSecretDB',{useNewUrlParser: true
 const userSchema =new mongoose.Schema({
     email:String,
     password: String,
-    googleId:String
+    googleId:String,
+    facebookId: String
+
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -75,6 +79,20 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
+
+
+passport.use(new FacebookStrategy({
+    clientID: FACEBOOK_APP_ID,
+    clientSecret: FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/hushush"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
 
 app.get("/",function(req,res){
     res.render("home");
