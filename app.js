@@ -82,9 +82,9 @@ passport.use(new GoogleStrategy({
 
 
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/hushush"
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/hushhush"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ facebookId: profile.id }, function (err, user) {
@@ -92,6 +92,7 @@ passport.use(new FacebookStrategy({
     });
   }
 ));
+
 
 
 app.get("/",function(req,res){
@@ -110,6 +111,16 @@ app.get("/auth/google",
     res.redirect("/secrets");
   });
 
+  app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/hushhush',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/secrets');
+  });
+
 app.get("/login",function(req,res){
     res.render("login");
 });
@@ -120,6 +131,16 @@ app.get("/register",function(req,res){
 app.get("/secrets",function(req,res){
     if(req.isAuthenticated){
         res.render("secrets");
+    }
+    else{
+        res.redirect("/login");
+    }
+});
+
+
+app.get("/submit",function(req,res){
+    if(req.isAuthenticated){
+        res.render("submit");
     }
     else{
         res.redirect("/login");
