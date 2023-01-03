@@ -1,22 +1,60 @@
 body{
     background-color: #3B185F;
-    text-align: center;
     color: burlywood ;
 
 }
 
-.centered{
-    padding-top:200px;
+.navbar {
+    
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    color: #FEBE8C;
+    
+}
+.navbar-brand{
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FEBE8C;
+}
+.navbar-nav  li a {
+    color: #FEBE8C;
+    margin: 0px 20px;
+    
+}
+.navbar-nav  li a:hover {
+    color: plum !important;
+    
+}
+
+.jumbotron {
+    padding-top:100px;
+    margin-top:20px ;
     text-align: center;
 }
 
 .secret-text{
     text-align: center;
     font-size: 2rem;
-    color:#fff;
-    background-color: purple;
+    color:#3B185F;
+    background-color: #F0CAA3;
+    padding: 10px 5px;
+    margin: 20px ;
 }
 
+.container{
+    align-items: center;
+
+}
+
+.row{
+    margin-top:20px;
+}
 
 form{
     margin-top: 20px;
@@ -29,8 +67,15 @@ form{
 
 label{
     font-weight: bolder;
+    
 }
 
+input{
+    width: 100%;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 4px 0;
+}
 .btn {
     background: #A3C7D6;
     background-image: -webkit-linear-gradient(top, #F0CAA3, #FEBE8C);
@@ -66,8 +111,8 @@ label{
 } */
 
 .footer p {
-
-	margin: 250px;
+    text-align: center;
+	margin: 150px;
 	font-size: 12px;
     
 } 

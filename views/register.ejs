@@ -12,12 +12,12 @@
         <form action="/register" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form control" name="username" value="" >
+                <input type="email" class="form control" name="username" placeholder="Enter email" >
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form control" name="password" value="" >
+                <input type="password" class="form control" name="password" placeholder="Password" >
             </div>
 
             <button type="submit" class ="btn" name="button" autocomplete="off">Register</button>
@@ -28,26 +28,29 @@
 </div>
 
 <div class="col-sm-4">
-    <div class="card-social-block">
-        <div class="card-body">
-            <a class="btn-block btn-social btn-google" href="/auth/google" role="button">
-                <i class="fa-brands fa-google"></i>
-                Sign Up with Google</a>
+ 
+        <div class="card">
+
+            <div class="card-body">
+                <a id="social" class="btn-block btn-social btn-google" href="/auth/google" role="button">
+                    <i class="fa-brands fa-google"></i>
+                    Sign Up with Google</a>
+            </div>
+            </div>
+
+            <div class="card">
+            <div class="card-body">
+                <a id="social" class="btn-block btn-social btn-facebook" href="/auth/facebook" role="button">
+                   <i class="fa-brands fa-facebook"></i>
+                   Sign Up with Facebook
+               </a>
+       </div>
         </div>
+        
     </div>
-</div>
-
-<div class="col-sm-4">
-    <div class="card-social-block">
-        <div class="card-body">
-            <a class="btn-block btn-social btn-facebook" href="/auth/facebook" role="button">
-                <i class="fa-brands fa-facebook"></i>
-                Sign Up with Facebook</a>
-        </div>
-    </div>
-</div>
-
-</div>
 
 
 </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -46,7 +46,7 @@ const userSchema =new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-const User = mongoose.model("User",userSchema);
+const User =new mongoose.model("User",userSchema);
 
 // CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
 passport.use(User.createStrategy());
@@ -67,14 +67,12 @@ passport.serializeUser(function(user, cb) {
     });
   });
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: " http://localhost:3000/auth/google/hushhush",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/hushhush"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return cb(err, user);
     });
@@ -101,15 +99,14 @@ app.get("/",function(req,res){
 }); //user go to homepage
 
 
-app.get("/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
-  );
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
 
-  app.get("/auth/google/hushhush", 
-  passport.authenticate("google", { failureRedirect: "/login" }),
+app.get('/auth/google/hushhush', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/secrets");
+    res.redirect('/secrets');
   });
 
   app.get('/auth/facebook',
@@ -130,14 +127,14 @@ app.get("/register",function(req,res){
 });
 
 app.get("/secrets",function(req,res){
-    User.find({ "secret": { "$ne": 'null' } }, function(err,foundUsers){
+    User.find({ "secret": { $ne :  null } }, function(err,foundUsers){
         if(err){
             console.log(err);
         }
 
         else{
             if(foundUsers){
-                res.render("secrets",{ userWithSecret: foundUsers })
+                res.render("secrets",{ usersWithSecrets: foundUsers })
             }
         }
     });
